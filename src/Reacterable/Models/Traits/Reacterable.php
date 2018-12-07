@@ -59,4 +59,20 @@ trait Reacterable
     {
         return is_null($this->getAttribute('love_reacter_id'));
     }
+
+    public function registerAsReacter(): void
+    {
+        // TODO: Cover with tests
+
+        if ($this->isRegisteredAsReacter()) {
+            // TODO: Throw exception `ReacterableAlreadyRegisteredAsReacter`
+        }
+
+        $reacter = $this->reacter()->create([
+            'type' => $this->getMorphClass(),
+        ]);
+
+        $this->setAttribute('love_reacter_id', $reacter->getKey());
+        $this->save();
+    }
 }

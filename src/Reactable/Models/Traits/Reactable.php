@@ -66,6 +66,22 @@ trait Reactable
         return is_null($this->getAttribute('love_reactant_id'));
     }
 
+    public function registerAsReactant(): void
+    {
+        // TODO: Cover with tests
+
+        if ($this->isRegisteredAsReactant()) {
+            // TODO: Throw exception `ReactableAlreadyRegisteredAsReactant`
+        }
+
+        $reactant = $this->reactant()->create([
+            'type' => $this->getMorphClass(),
+        ]);
+
+        $this->setAttribute('love_reactant_id', $reactant->getKey());
+        $this->save();
+    }
+
     public function scopeWhereReactedBy(Builder $query, ReacterContract $reacter): Builder
     {
         return $query->whereHas('reactant.reactions', function (Builder $reactionsQuery) use ($reacter) {
