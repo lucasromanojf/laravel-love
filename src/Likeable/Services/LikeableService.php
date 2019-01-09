@@ -338,7 +338,7 @@ class LikeableService implements LikeableServiceContract
             $likesCount->where('type_id', $this->getLikeTypeId($likeType));
         }
 
-        $likesCount->groupBy('likeable_id', 'type_id');
+        $likesCount->groupBy('likeable_type', 'likeable_id', 'type_id');
 
         return $likesCount->get()->toArray();
     }
